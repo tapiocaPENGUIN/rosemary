@@ -38,6 +38,20 @@ def add_recipe():
         print(steps)
 
         return data
+    
+@app.route("/recipe/search/", methods=['POST'])
+def search_results():
+    search_request = request.form.get('recipeSearch')
+    url ='http://localhost:5000/api/recipes/search/{}/'.format(search_request)
+    print(url)
+    response = requests.get(url )
+    print(response.status_code)
+    if response.status_code == 200:
+        return render_template('search.html', search_results=response.json())
+    else:
+        return "error"
+    
+    
 
 
 if __name__ == '__main__':
