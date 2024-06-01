@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block main %}
+
+{% for r in recipes %}
+
+<div class="col-3" id="test">
+<a href="{{url_for ('get_one_recipe', name=recipes[r]['name'])}}" class="links">{{ recipes[r]['name']}} </a> 
+
+<p style="white-space: nowrap; color: red;">{{ recipes[r]['description']}}</p>
+
+<p style="color: blue;">{{ recipes[r]['created_by']}}</p>
+</div>
+
+{% endfor %}
+{% endblock %}

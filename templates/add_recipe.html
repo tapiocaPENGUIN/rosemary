@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% block main %}
+
+<div class="row"> 
+    <div class="col-md-4"></div> 
+    <div class="col-md-4"> 
+        <form action="{{ url_for('add_recipe')}}" method="post"> 
+            <label for="recipeName" class="form-label">Recipe Name</label> 
+            <input name="recipeName" type="text" class="form-control" id="recipeName"> 
+
+            <label for="recipeDescription" class="form-label">Description</label> 
+            <input name="recipeDescription" type="text" class="form-control" id="recipeDescription"> 
+
+            <label for="createdBy" class="form-label">Created By</label> 
+            <input name="createdBy" type="text" class="form-control" id="createdBy"> 
+            
+            <div class="input-wrapper">
+            
+            <a href="javascript:void(0);" class="add-tag" title="Add input">Add Tag</a>
+            </div>
+            <div class="input-wrapper2">
+            <a href="javascript:void(0);" class="add-ingredients" title="Add input">Add Ingredient</a>
+            </div>
+
+            <div class="input-wrapper3">
+            <a href="javascript:void(0);" class="add-step" title="Add input">Add Step</a>
+            </div>
+            
+           
+            <button type="submit" class="btn btn-primary">Submit</button> 
+        </form> 
+    </div> 
+</div> 
+<script>
+$(document).ready(function(){
+    var max_input_fields = 10;
+    var max_ingredient_count = 20;
+    var max_steps = 20
+
+    var add_input = $('.add-tag');
+    var add_ingredient = $('.add-ingredients');
+    var add_step = $('.add-step')
+
+    var input_wrapper = $('.input-wrapper');
+    var input_wrapper2 = $('.input-wrapper2');
+    var input_wrapper3 = $('.input-wrapper3');
+
+    var new_input = '<div><input type="text" name="tags[]" value=""/><a href="javascript:void(0);" class="remove-tag" title="Remove input">Remove Tag</a></div>';
+    var new_ingredient = '<div><input type="text" name="ingredients[]" value=""/><a href="javascript:void(0);" class="remove-ingredient" title="Remove input">Remove Ingredient</a></div>';
+    var new_step = '<div><input type="text" name="steps[]" value=""/><a href="javascript:void(0);" class="remove-step" title="Remove input">Remove Step</a></div>';
+
+    var add_input_count = 1; 
+    var add_ingredient_count = 1;
+    var add_step_count = 1;
+
+    $(add_input).click(function(){
+        if(add_input_count < max_input_fields){
+            add_input_count++; 
+            $(input_wrapper).append(new_input); 
+        }
+    });
+    $(input_wrapper).on('click', '.remove-tag', function(e){
+        e.preventDefault();
+        $(this).parent('div').remove();
+        add_input_count--;
+    });
+
+    $(add_ingredient).click(function(){
+        if(add_ingredient_count < max_ingredient_count){
+            add_ingredient_count++; 
+            $(input_wrapper2).append(new_ingredient); 
+        }
+    });
+    $(input_wrapper2).on('click', '.remove-ingredient', function(e){
+        e.preventDefault();
+        $(this).parent('div').remove();
+        add_ingredient_count--;
+    });
+
+    $(add_step).click(function(){
+        if(add_step_count < max_steps){
+            add_ingredient_count++; 
+            $(input_wrapper3).append(new_step); 
+        }
+    });
+    $(input_wrapper3).on('click', '.remove-step', function(e){
+        e.preventDefault();
+        $(this).parent('div').remove();
+        add_step_count--;
+    });
+});
+</script>
+
+{% endblock %}
