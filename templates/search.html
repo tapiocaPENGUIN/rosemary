@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block main %}
-
-<p>{{ search_results }}</p>
+{% for r in search_results %}
+<p>{{ search_results[r] }}</p> </br>
+{% endfor %}
 {% endblock %}
